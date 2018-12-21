@@ -1,0 +1,52 @@
+interface Likeable {
+  likes: [Like]
+}
+
+type Author implements Likeable {
+  id: ID!
+  nickname: String!
+  email: String!
+  topics: [Topic]
+  comment: [Comment]
+  likes: [Like]
+}
+
+type Topic implements Likeable {
+  id: ID!
+  title: String!
+  text: String
+  author: Author!
+  likes: [Like]
+}
+
+type Comment implements Likeable {
+  id: ID!
+  text: String!
+  author: Author!
+  comments: [Comment]
+  likes: [Like]
+}
+
+type Like {
+  id: ID!
+  author: Author!
+  entityId: String!
+  entityType: String!
+}
+
+type Query {
+  topics: [Topic]
+  author(id: String!): Author
+  authors: [Author]
+}
+
+# input TopicInput {
+#   title: String!
+#   text: String
+#   author: ID!
+# }
+
+# type Mutation {
+#   saveTopic: (input: TopicInput!): Topic
+#   # like(id: String! type: String!): Boolean
+# }

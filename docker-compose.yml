@@ -1,0 +1,29 @@
+version: "3.5"
+
+volumes:
+  database:
+
+networks:
+  ingres:
+
+services:
+  app:
+    depends_on:
+      - database
+    image: shonie/itrex:latest
+    networks:
+      - ingres
+    labels:
+      traefik.enable: 'true'
+      traefik.network: 'ingres'
+      traefik.frontend.rule: 'Host:app.localhost'
+      traefik.port: 8080
+
+  database:
+    image: postgres
+    networks:
+      - ingres
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
