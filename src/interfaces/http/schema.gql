@@ -7,7 +7,7 @@ type Author implements Likeable {
   nickname: String!
   email: String!
   topics: [Topic]
-  comment: [Comment]
+  comments: [Comment]
   likes: [Like]
 }
 
@@ -36,17 +36,24 @@ type Like {
 
 type Query {
   topics: [Topic]
-  author(id: String!): Author
+  author(id: ID!): Author
   authors: [Author]
 }
 
-# input TopicInput {
-#   title: String!
-#   text: String
-#   author: ID!
-# }
+input TopicInput {
+  title: String!
+  text: String
+  author: ID!
+}
 
-# type Mutation {
-#   saveTopic: (input: TopicInput!): Topic
-#   # like(id: String! type: String!): Boolean
-# }
+input AuthInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  signUp(signUpInput: AuthInput!): String!
+  signIn(signInInput: AuthInput!): String!
+  saveTopic(input: TopicInput!): Topic
+  like(id: String!, type: String!): Boolean
+}

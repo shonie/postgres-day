@@ -38,6 +38,10 @@ module.exports = ({ logger, config, basePath }) => {
         .catch(err => {
           logger.error(`PostgreSQL connection error: ${err}`);
           throw err;
+        })
+        .then(() => sequelize.sync())
+        .catch(err => {
+          logger.error(`PostgreSQL failed to create tables: ${err}`);
         }),
   };
 };
