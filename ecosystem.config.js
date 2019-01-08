@@ -3,7 +3,8 @@ module.exports = {
     {
       name: 'postgres-day',
       script: 'index.js',
-      instances: 1,
+      mode: 'cluster',
+      instances: 'max',
       autorestart: true,
       watch: ['src'],
       watchIgnore: ['node_modules'],
