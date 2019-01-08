@@ -7,6 +7,6 @@ module.exports = logger => ({
     logger.gql(`Request:\n${queryString}`);
   },
   willSendResponse({ graphqlResponse }) {
-    logger.gql(`Response: ${formatResponse(graphqlResponse)}}`);
+    logger.gql(`Response:\n${formatResponse(graphqlResponse)}}`);
   },
 });
