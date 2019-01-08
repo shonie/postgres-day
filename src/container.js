@@ -1,6 +1,6 @@
 const { createContainer, asFunction, asValue } = require('awilix');
-const app = require('./app');
 const config = require('../config');
+const app = require('./app');
 const server = require('./interfaces/http/server');
 const apollo = require('./interfaces/http/apollo');
 const logger = require('./infra/logger');

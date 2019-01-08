@@ -10,5 +10,8 @@ module.exports = ({ config, logger }) => {
     async authenticate() {
       return Promise.all([redis.authenticate(), sequelize.authenticate()]);
     },
+    async close() {
+      await Promise.all([redis.end(true), sequelize.connection.close()]);
+    },
   };
 };

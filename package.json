@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "nodemon": "nodemon",
     "test": "npm run mocha",
-    "start": "node cluster.js"
+    "start": "pm2 start",
+    "start:dev": "nodemon"
   },
   "repository": {
     "type": "git",

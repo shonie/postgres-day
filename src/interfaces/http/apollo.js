@@ -8,7 +8,7 @@ const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.gql'), {
   encoding: 'utf-8',
 });
 
-module.exports = ({ database }) => {
+module.exports = ({ database, logger }) => {
   const authorsRepository = createAuthorsRepository(database.sequelize.models.author);
 
   const resolvers = {
@@ -42,13 +42,23 @@ module.exports = ({ database }) => {
     },
     Mutation: {
       signUp: (_, { signUpInput: { email, password } }) => {
-        console.log(email, password);
+        logger.info(email, password);
       },
       signIn: (_, { signInInput: { email, password } }) => {
-        console.log(email, password);
+        logger.info(email, password);
       },
     },
   };
 
-  return new ApolloServer({ typeDefs, resolvers });
+  return new ApolloServer({
+    typeDefs,
+    resolvers,
+    formatError(error) {
+      logger.info(error);
+      return error;
+    },
+    formatResponse(response) {
+      console.log(response);
+      return response;
+    }});
 };
