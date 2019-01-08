@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run mocha",
-    "start": "pm2 start",
-    "start:dev": "nodemon"
+    "start": "pm2 start --no-daemon",
+    "start:dev": "pm2 start"
   },
   "repository": {
     "type": "git",
