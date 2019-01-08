@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const createAuthorsRepository = require('../../infra/repositories/author');
 const authorApp = require('../../app/author');
+const createLoggerExtension = require('./extensions/logger');
 
 const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.gql'), {
   encoding: 'utf-8',
@@ -53,12 +54,6 @@ module.exports = ({ database, logger }) => {
   return new ApolloServer({
     typeDefs,
     resolvers,
-    formatError(error) {
-      logger.info(error);
-      return error;
-    },
-    formatResponse(response) {
-      console.log(response);
-      return response;
-    }});
+    extensions: [() => createLoggerExtension(logger)],
+  });
 };

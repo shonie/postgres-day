@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run mocha",
     "start": "pm2 start --no-daemon",
-    "start:dev": "pm2 start"
+    "start:dev": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "nconf": "^0.10.0",
     "pg": "^7.7.1",
     "pm2": "^3.2.4",
+    "ramda": "^0.26.1",
     "redis": "^2.8.0",
     "sequelize": "^4.41.2",
     "winston": "^3.1.0"

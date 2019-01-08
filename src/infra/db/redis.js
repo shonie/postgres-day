@@ -15,7 +15,7 @@ module.exports = ({ logger, config }) => {
         });
 
         client.on('error', err => {
-          logger.info(`Redis connection error: ${err}`);
+          logger.log('error', `Redis connection error: ${err}`);
           reject();
         });
       });

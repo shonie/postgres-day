@@ -11,9 +11,11 @@ module.exports = {
       max_memory_restart: '1G',
       env: {
         NODE_ENV: 'development',
+        NODE_PATH: '.',
       },
       env_production: {
         NODE_ENV: 'production',
+        NODE_PATH: '.',
       },
     },
   ],
