@@ -14,7 +14,7 @@ module.exports = ({ config, logger, apollo, database }) => {
       logger.error('Application error: ', err);
     });
 
-  apollo.applyMiddleware({ app });
+  apollo.applyMiddleware({ app, path: '/api' });
 
   return {
     app,
@@ -23,8 +23,11 @@ module.exports = ({ config, logger, apollo, database }) => {
         const server = http.createServer(app.callback()).listen(port, host, () => {
           // `this` refers to the http server here
           const { address, port: adressPort } = server.address();
+
           const hostPort = `http://${address}:${adressPort}`;
+
           logger.info(`Listening on ${hostPort}...`);
+
           logger.info(`GraphQL endpoint: ${hostPort}${apollo.graphqlPath}`);
 
           process.send('ready'); // notify master about readiness
@@ -38,6 +41,7 @@ module.exports = ({ config, logger, apollo, database }) => {
               }, 1500);
             }
           });
+
           process.on('SIGINT', () => {
             logger.info('SIGINT signal received.');
 
