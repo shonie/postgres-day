@@ -8,8 +8,7 @@
     "start": "cross-env NODE_PATH=src pm2 start --no-daemon",
     "start:dev": "cross-env NODE_PATH=src nodemon ./index.js",
     "gen:apq": "persistgraphql src/interfaces/graphql/persistedQueries/ src/interfaces/graphql/persistedQueries/config.json",
-    "lint": "eslint .",
-    "gulp": "gulp"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -30,10 +29,6 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
-    "gulp": "^4.0.0",
-    "gulp-ava": "^1.0.0",
-    "gulp-cli": "^2.0.1",
-    "gulplog": "^1.0.0",
     "nodemon": "^1.18.7",
     "prettier": "^1.15.3"
   },

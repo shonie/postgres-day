@@ -18,6 +18,9 @@ module.exports = ({ logger, database, config }) =>
     extensions: [() => createLoggerExtension(logger)],
     persistedQueries,
     cacheControl: true,
+    engine: {
+      apiKey: config.get('ENGINE_API_KEY'),
+    },
     cache: new RedisCache({
       connectTimeout: 5000,
       reconnectOnError(err) {

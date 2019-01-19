@@ -1,10 +1,5 @@
 const test = require('ava');
-const { createTestClient } = require('apollo-server-testing');
-const container = require('../../src/container');
-
-const apollo = container.resolve('apollo');
-
-const { mutate } = createTestClient(apollo);
+const { mutate } = require('../testServer');
 
 test('Signs up with email and password', async t => {
   const mutation = `
@@ -14,9 +9,11 @@ test('Signs up with email and password', async t => {
     `;
 
   const result = await mutate({
-    mutation,
+    mutation: {
+      id: '1',
+    },
     variables: { signUpInput: { password: 'foo', email: 'nancy3@foo.co' } },
   });
 
-  t.true(!!result.data.signUp, true);
+  t.true(!!result.data.signUp);
 });

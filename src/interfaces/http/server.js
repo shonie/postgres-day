@@ -2,6 +2,7 @@ const Koa = require('koa');
 const loggerWinston = require('koa-logger-winston');
 const http = require('http');
 const bodyParser = require('koa-bodyparser');
+const persistedQueriesMiddleware = require('./middlewares/persistedQueries');
 
 module.exports = ({ config, logger, apollo, database }) => {
   const host = config.get('HOST');
@@ -10,8 +11,9 @@ module.exports = ({ config, logger, apollo, database }) => {
   const app = new Koa()
     .use(loggerWinston(logger))
     .use(bodyParser())
+    .use(persistedQueriesMiddleware)
     .on('error', err => {
-      logger.error('Application error: ', err);
+      logger.error(err);
     });
 
   apollo.applyMiddleware({ app, path: '/api' });
