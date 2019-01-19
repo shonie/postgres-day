@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run mocha",
+    "test": "ava --verbose",
     "start": "cross-env NODE_PATH=src pm2 start --no-daemon",
-    "start:dev": "cross-env NODE_PATH=src nodemon ./index.js"
+    "start:dev": "cross-env NODE_PATH=src nodemon ./index.js",
+    "gen:apq": "persistgraphql src/interfaces/graphql/persistedQueries/ src/interfaces/graphql/persistedQueries/config.json",
+    "lint": "eslint .",
+    "gulp": "gulp"
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/shonie/postgres-day#readme",
   "devDependencies": {
+    "ava": "^1.1.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.3.0",
@@ -26,12 +30,17 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
-    "mocha": "^5.2.0",
+    "gulp": "^4.0.0",
+    "gulp-ava": "^1.0.0",
+    "gulp-cli": "^2.0.1",
+    "gulplog": "^1.0.0",
     "nodemon": "^1.18.7",
     "prettier": "^1.15.3"
   },
   "dependencies": {
     "apollo-server-koa": "^2.3.1",
+    "apollo-server-redis": "0.1.0-rc.11",
+    "apollo-server-testing": "^2.3.1",
     "awilix": "^4.0.1",
     "bcrypt": "^3.0.3",
     "cross-env": "^5.2.0",
@@ -42,7 +51,10 @@
     "koa-compose": "^4.1.0",
     "koa-logger-winston": "0.0.2",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
     "nconf": "^0.10.0",
+    "parse-database-url": "^0.3.0",
+    "persistgraphql": "^0.3.11",
     "pg": "^7.7.1",
     "pm2": "^3.2.4",
     "ramda": "^0.26.1",

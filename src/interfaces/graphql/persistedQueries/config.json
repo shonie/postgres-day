@@ -1,0 +1,1 @@
+{"mutation signIn($signInInput: AuthInput!) {\n  signIn(signInInput: $signInInput)\n}\n":1,"mutation signUp($signUpInput: AuthInput!) {\n  signUp(signUpInput: $signUpInput)\n}\n":2}

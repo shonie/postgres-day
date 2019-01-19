@@ -1,6 +1,6 @@
-const createQueryResolvers = require('./queries');
-const createMutationResolvers = require('./mutations');
-const createTypeResolvers = require('./types');
+const createQueryResolvers = require('./Query');
+const createMutationResolvers = require('./Mutation');
+const createTypeResolvers = require('./Types');
 
 module.exports = ({ database, logger }) => ({
   ...createTypeResolvers({ database, logger }),

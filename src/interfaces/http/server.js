@@ -30,7 +30,10 @@ module.exports = ({ config, logger, apollo, database }) => {
 
           logger.info(`GraphQL endpoint: ${hostPort}${apollo.graphqlPath}`);
 
-          process.send('ready'); // notify master about readiness
+          if (process.send) {
+            // notify master about readiness
+            process.send('ready');
+          }
 
           process.on('message', msg => {
             if (msg === 'shutdown') {
