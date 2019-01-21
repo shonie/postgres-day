@@ -1,0 +1,3 @@
+mutation createAccount($accountInput: AccountInput!) {
+  createAccount(accountInput: $accountInput)
+}

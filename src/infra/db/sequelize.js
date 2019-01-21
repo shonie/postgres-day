@@ -13,7 +13,9 @@ module.exports = ({ logger, config, basePath }) => {
   });
 
   const models = {};
+
   const dir = path.join(basePath, './models');
+
   fs.readdirSync(dir).forEach(file => {
     const modelDir = path.join(dir, file);
     const model = sequelize.import(modelDir);

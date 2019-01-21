@@ -1,0 +1,3 @@
+mutation deleteAccount($accountInput: AccountInput!) {
+  deleteAccount(accountInput: $accountInput)
+}

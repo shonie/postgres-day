@@ -1,9 +1,6 @@
-require('dotenv').config();
-const container = require('./src/container');
+const container = require('./src');
 
-const app = container.resolve('app');
+const db = container.resolve('database');
+const server = container.resolve('server');
 
-app.start().catch(error => {
-  app.logger.error(error.stack);
-  process.exit();
-});
+db.authenticate().then(server.start);

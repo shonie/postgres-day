@@ -7,7 +7,7 @@ const createResolvers = require('./resolvers');
 const createLoggerExtension = require('./extensions/logger');
 const { idsByQuery: persistedQueries } = require('./persistedQueries');
 
-const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), {
+const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.gql'), {
   encoding: 'utf-8',
 });
 
@@ -15,7 +15,7 @@ module.exports = ({ logger, database, config }) =>
   new ApolloServer({
     typeDefs,
     resolvers: createResolvers({ database }),
-    extensions: [() => createLoggerExtension(logger)],
+    createExtensions: [() => createLoggerExtension(logger)],
     persistedQueries,
     cacheControl: true,
     engine: {

@@ -1,32 +1,3 @@
-interface Likeable {
-  likes: [Like]
-}
-
-type Author implements Likeable {
-  id: ID!
-  nickname: String!
-  email: String!
-  topics: [Topic]
-  comments: [Comment]
-  likes: [Like]
-}
-
-type Topic implements Likeable {
-  id: ID!
-  title: String!
-  text: String
-  author: Author!
-  likes: [Like]
-}
-
-type Comment implements Likeable {
-  id: ID!
-  text: String!
-  author: Author!
-  comments: [Comment]
-  likes: [Like]
-}
-
 type Like {
   id: ID!
   author: Author!
@@ -34,10 +5,39 @@ type Like {
   entityType: String!
 }
 
+interface Likeable {
+  likes: [Like]!
+}
+
+type Author implements Likeable {
+  id: ID!
+  nickname: String!
+  email: String!
+  topics: [Topic]!
+  comments: [Comment]!
+  likes: [Like]!
+}
+
+type Topic implements Likeable {
+  id: ID!
+  title: String!
+  text: String
+  author: Author!
+  likes: [Like]!
+}
+
+type Comment implements Likeable {
+  id: ID!
+  text: String!
+  author: Author!
+  comments: [Comment]!
+  likes: [Like]!
+}
+
 type Query {
   topics: [Topic]
   author(id: ID!): Author
-  authors: [Author]
+  authors: [Author]!
 }
 
 input TopicInput {
@@ -46,14 +46,15 @@ input TopicInput {
   author: ID!
 }
 
-input AuthInput {
+input AccountInput {
   email: String!
   password: String!
 }
 
 type Mutation {
-  signUp(signUpInput: AuthInput!): String!
-  signIn(signInInput: AuthInput!): String!
+  createAccount(accountInput: AccountInput!): String!
+  deleteAccount(accountInput: AccountInput!): Boolean!
+  login(accountInput: AccountInput!): String!
   saveTopic(input: TopicInput!): Topic
   like(id: String!, type: String!): Boolean
 }

@@ -2,10 +2,25 @@
 // As you might notice, the DataTypes are the very same as explained above
 module.exports = (sequelize, DataTypes) =>
   sequelize.define('author', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+    },
     nickname: DataTypes.STRING,
     email: DataTypes.TEXT,
-    topics: DataTypes.ARRAY(DataTypes.UUID),
-    comments: DataTypes.ARRAY(DataTypes.UUID),
-    likes: DataTypes.ARRAY(DataTypes.UUID),
     hashedPassword: DataTypes.STRING,
+    topics: {
+      type: DataTypes.ARRAY(DataTypes.UUID),
+      defaultValue: [],
+    },
+    comments: {
+      type: DataTypes.ARRAY(DataTypes.UUID),
+      defaultValue: [],
+    },
+    likes: {
+      type: DataTypes.ARRAY(DataTypes.UUID),
+      defaultValue: [],
+    },
   });
