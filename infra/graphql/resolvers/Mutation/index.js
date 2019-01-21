@@ -5,10 +5,10 @@ const BCRYPT_ROUNDS = 10;
 const checkPassword = (plainPassword, hashedPassword) => bcrypt.compare(plainPassword, hashedPassword);
 
 module.exports = ({
-  logger,
   database: {
     storage: { models },
   },
+  jwt,
 }) => ({
   async createAccount(
     _,
@@ -36,8 +36,9 @@ module.exports = ({
 
     const { id } = await author.save();
 
-    return id;
+    return jwt.signin()({ id });
   },
+
   async deleteAccount(
     _,
     {
@@ -68,12 +69,31 @@ module.exports = ({
 
     return ok;
   },
+
   async login(
     _,
     {
       accountInput: { email, password },
     }
   ) {
-    logger.info(email, password);
+    const author = await models.author.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!author) {
+      throw new Error('Account does not exist');
+    }
+
+    const passwordCorrect = checkPassword(password, author.hashedPassword);
+
+    if (!passwordCorrect) {
+      throw new Error('Unauthorized');
+    }
+
+    const { id } = author;
+
+    return jwt.signin()({ id });
   },
 });

@@ -1,8 +1,8 @@
 const config = require('config');
 const { createTestClient } = require('apollo-server-testing');
-const createApollo = require('src/infra/graphql');
-const createLogger = require('src/infra/logger');
-const createDatabase = require('src/infra/db');
+const createApollo = require('infra/graphql');
+const createLogger = require('infra/logger');
+const createDatabase = require('infra/db');
 
 const logger = createLogger();
 

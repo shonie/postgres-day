@@ -5,7 +5,7 @@ const { query, mutate } = require('./testServer');
 
 const readFile = util.promisify(fs.readFile);
 
-const QUERIES_BASE_PATH = path.resolve('src/infra/graphql/persistedQueries');
+const QUERIES_BASE_PATH = path.resolve('infra/graphql/persistedQueries');
 
 const isMutation = operationBody => operationBody.indexOf('mutation') !== -1;
 

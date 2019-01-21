@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { RedisCache } = require('apollo-server-redis');
 const parseDbUrl = require('parse-database-url');
+const createJwtModule = require('infra/jwt');
 const createResolvers = require('./resolvers');
 const createLoggerExtension = require('./extensions/logger');
 const { idsByQuery: persistedQueries } = require('./persistedQueries');
@@ -14,7 +15,7 @@ const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.gql'), {
 module.exports = ({ logger, database, config }) =>
   new ApolloServer({
     typeDefs,
-    resolvers: createResolvers({ database }),
+    resolvers: createResolvers({ logger, database, config, jwt: createJwtModule({ config }) }),
     createExtensions: [() => createLoggerExtension(logger)],
     persistedQueries,
     cacheControl: true,

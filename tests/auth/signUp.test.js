@@ -12,8 +12,10 @@ test.serial(
     accountInput: NEW_USER,
   },
   (t, res) => {
-    // eslint-disable-next-line no-param-reassign
-    t.context.token = res.data;
+    if (res.data) {
+      // eslint-disable-next-line no-param-reassign
+      t.context.token = res.data.createAccount;
+    }
 
     return t.true(!!res.data);
   }
@@ -36,7 +38,7 @@ test.serial(
   {
     accountInput: NEW_USER,
   },
-  (t, res) => t.true(!!res.data)
+  (t, res) => t.true(!!res.data) && t.context.token === res.data.login
 );
 
 test.serial(
