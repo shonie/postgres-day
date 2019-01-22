@@ -26,6 +26,7 @@
   "homepage": "https://github.com/shonie/postgres-day#readme",
   "devDependencies": {
     "apollo": "^2.3.0",
+    "apollo-server-testing": "^2.3.1",
     "ava": "^1.1.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -38,9 +39,9 @@
     "prettier": "^1.15.3"
   },
   "dependencies": {
+    "apollo-datasource": "^0.2.1",
     "apollo-server-koa": "^2.3.1",
     "apollo-server-redis": "0.1.0-rc.11",
-    "apollo-server-testing": "^2.3.1",
     "awilix": "^4.0.1",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.1.0",

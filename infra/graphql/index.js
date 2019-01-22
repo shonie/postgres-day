@@ -4,20 +4,33 @@ const path = require('path');
 const { RedisCache } = require('apollo-server-redis');
 const parseDbUrl = require('parse-database-url');
 const createJwtModule = require('infra/jwt');
-const createResolvers = require('./resolvers');
-const createLoggerExtension = require('./extensions/logger');
+const resolvers = require('./resolvers');
+const createLoggerExtension = require('./gqlLogger');
 const { idsByQuery: persistedQueries } = require('./persistedQueries');
+const { AuthAPI, AuthorAPI } = require('./dataSources');
 
 const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.gql'), {
   encoding: 'utf-8',
 });
 
-module.exports = ({ logger, database, config }) => options => {
+module.exports = ({
+  logger,
+  database: {
+    storage: { models },
+  },
+  config,
+}) => options => {
   const jwt = createJwtModule({ config });
+
+  const dataSources = () => ({
+    authorAPI: new AuthorAPI({ Author: models.author, Article: models.article }),
+    authAPI: new AuthAPI({ Author: models.author, jwt }),
+  });
 
   return new ApolloServer({
     typeDefs,
-    resolvers: createResolvers({ logger, database, config, jwt }),
+    resolvers,
+    dataSources,
     createExtensions: [() => createLoggerExtension(logger)],
     persistedQueries,
     cacheControl: true,
