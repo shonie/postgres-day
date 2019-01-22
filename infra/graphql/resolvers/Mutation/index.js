@@ -86,7 +86,7 @@ module.exports = ({
       throw new Error('Account does not exist');
     }
 
-    const passwordCorrect = checkPassword(password, author.hashedPassword);
+    const passwordCorrect = await checkPassword(password, author.hashedPassword);
 
     if (!passwordCorrect) {
       throw new Error('Unauthorized');

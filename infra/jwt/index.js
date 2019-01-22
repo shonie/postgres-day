@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { compose, trim, replace, partialRight } = require('lodash');
+const { trim, replace, partialRight } = require('lodash');
+const { compose } = require('lodash/fp');
 
 module.exports = ({ config }) => ({
   verify: (options = {}) => token => jwt.verify(token, config.get('JWT_SECRET'), options),
@@ -13,9 +14,8 @@ module.exports = ({ config }) => ({
   },
   decode: (options = {}) => token => {
     const decodeToken = compose(
-      partialRight(jwt.decode, [options]),
-      trim,
-      replace(/JWT|jwt/g, '')
+      partialRight(jwt.decode, options),
+      trim
     );
 
     return decodeToken(token);

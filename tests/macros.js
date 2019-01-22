@@ -9,7 +9,11 @@ const QUERIES_BASE_PATH = path.resolve('infra/graphql/persistedQueries');
 
 const isMutation = operationBody => operationBody.indexOf('mutation') !== -1;
 
-exports.query = async (t, operationName, variables, test, basePath = QUERIES_BASE_PATH) => {
+exports.query = async (t, operationName, options, test, basePath = QUERIES_BASE_PATH) => {
+  const opts = options instanceof Function ? options(t) : options;
+
+  const { variables, ...operationOptions } = opts;
+
   const p = path.join(basePath, `${operationName}.gql`);
 
   try {
@@ -26,6 +30,7 @@ exports.query = async (t, operationName, variables, test, basePath = QUERIES_BAS
     const pendingOperation = operation({
       [operationIsMutation ? 'mutation' : 'query']: operationBody,
       variables,
+      ...operationOptions,
     });
 
     const result = await pendingOperation;

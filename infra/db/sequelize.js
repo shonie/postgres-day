@@ -10,6 +10,8 @@ module.exports = ({ logger, config, basePath }) => {
     dialectOptions: {
       ssl: true,
     },
+    logging: logger.info,
+    operatorsAliases: Sequelize.Op,
   });
 
   const models = {};

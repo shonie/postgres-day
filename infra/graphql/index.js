@@ -12,10 +12,12 @@ const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.gql'), {
   encoding: 'utf-8',
 });
 
-module.exports = ({ logger, database, config }) =>
-  new ApolloServer({
+module.exports = ({ logger, database, config }) => options => {
+  const jwt = createJwtModule({ config });
+
+  return new ApolloServer({
     typeDefs,
-    resolvers: createResolvers({ logger, database, config, jwt: createJwtModule({ config }) }),
+    resolvers: createResolvers({ logger, database, config, jwt }),
     createExtensions: [() => createLoggerExtension(logger)],
     persistedQueries,
     cacheControl: true,
@@ -49,4 +51,13 @@ module.exports = ({ logger, database, config }) =>
       socket_keepalive: false,
       ...parseDbUrl(config.get('REDIS_URL')),
     }),
+    context: async ({ ctx }) => {
+      const token = ctx.request.headers.authorization ? ctx.request.headers.authorization.slice(7) : '';
+
+      const { id, email } = jwt.decode()(token) || { id: null, email: null };
+
+      return { user: { id, email } };
+    },
+    ...options,
   });
+};

@@ -2,14 +2,18 @@ require('config');
 const test = require('ava');
 const { query } = require('../macros');
 
-const NEW_USER = { password: 'foo', email: 'foo@bar.co' };
+const NEW_USER = { password: 'foo', email: 'foo@1bar.bas' };
+
+const variables = {
+  accountInput: NEW_USER,
+};
 
 test.serial(
   'Create account with email and password',
   query,
   'createAccount',
   {
-    accountInput: NEW_USER,
+    variables,
   },
   (t, res) => {
     if (res.data) {
@@ -26,7 +30,7 @@ test.serial(
   query,
   'createAccount',
   {
-    accountInput: NEW_USER,
+    variables,
   },
   (t, res) => t.is(res.errors.length, 1)
 );
@@ -36,9 +40,39 @@ test.serial(
   query,
   'login',
   {
-    accountInput: NEW_USER,
+    variables,
   },
   (t, res) => t.true(!!res.data) && t.context.token === res.data.login
+);
+
+test.serial(
+  'Does not login with incorrect email',
+  query,
+  'login',
+  {
+    variables: {
+      accountInput: {
+        ...NEW_USER,
+        email: 'invalid@badmail.co',
+      },
+    },
+  },
+  (t, res) => t.is(res.errors.length, 1) && t.is(res.data, null)
+);
+
+test.serial(
+  'Does not login with incorrect password',
+  query,
+  'login',
+  {
+    variables: {
+      accountInput: {
+        ...NEW_USER,
+        password: 'invalid_password',
+      },
+    },
+  },
+  (t, res) => t.is(res.errors.length, 1) && t.is(res.data, null)
 );
 
 test.serial(
@@ -46,7 +80,7 @@ test.serial(
   query,
   'deleteAccount',
   {
-    accountInput: NEW_USER,
+    variables,
   },
   (t, res) => t.is(!!res.data, true)
 );

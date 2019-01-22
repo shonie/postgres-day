@@ -4,7 +4,7 @@ const http = require('http');
 const bodyParser = require('koa-bodyparser');
 const persistedQueriesMiddleware = require('./middlewares/persistedQueries');
 
-module.exports = ({ config, logger, apollo, database }) => {
+module.exports = ({ config, logger, apollo: apolloFactory, database }) => {
   const host = config.get('HOST');
   const port = config.get('PORT');
 
@@ -15,6 +15,8 @@ module.exports = ({ config, logger, apollo, database }) => {
     .on('error', err => {
       logger.error(err);
     });
+
+  const apollo = apolloFactory();
 
   apollo.applyMiddleware({ app, path: '/api' });
 
