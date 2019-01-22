@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { trim, replace, partialRight } = require('lodash');
+const { trim, partialRight } = require('lodash');
 const { compose } = require('lodash/fp');
 
 module.exports = ({ config }) => ({
