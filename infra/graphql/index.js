@@ -23,7 +23,7 @@ module.exports = ({
   const jwt = createJwtModule({ config });
 
   const dataSources = () => ({
-    authorAPI: new AuthorAPI({ Author: models.author, Article: models.article }),
+    authorAPI: new AuthorAPI({ Author: models.author, Article: models.topic }),
     authAPI: new AuthAPI({ Author: models.author, jwt }),
   });
 

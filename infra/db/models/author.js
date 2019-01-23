@@ -11,16 +11,4 @@ module.exports = (sequelize, DataTypes) =>
     nickname: DataTypes.STRING,
     email: DataTypes.TEXT,
     hashedPassword: DataTypes.STRING,
-    topics: {
-      type: DataTypes.ARRAY(DataTypes.UUID),
-      defaultValue: [],
-    },
-    comments: {
-      type: DataTypes.ARRAY(DataTypes.UUID),
-      defaultValue: [],
-    },
-    likes: {
-      type: DataTypes.ARRAY(DataTypes.UUID),
-      defaultValue: [],
-    },
   });

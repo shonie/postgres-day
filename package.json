@@ -9,6 +9,7 @@
     "migrations": "DEBUG=sequelize:sql* dotenv sequelize db:migrate",
     "migrations:undo": "DEBUG=sequelize:sql* dotenv sequelize db:migrate:undo",
     "migrations:generate": "DEBUG=sequelize:sql* dotenv sequelize migration:generate --name=",
+    "seed": "dotenv sequelize db:seed:all",
     "start": "dotenv pm2 start --no-daemon",
     "start:dev": "dotenv nodemon ./index.js",
     "gen:apq": "persistgraphql src/interfaces/graphql/persistedQueries/ src/interfaces/graphql/persistedQueries/config.json",

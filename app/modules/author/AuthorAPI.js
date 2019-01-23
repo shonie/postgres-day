@@ -13,8 +13,29 @@ class AuthorAPI extends DataSource {
     this.context = config.context;
   }
 
-  async saveArticle() {
-    return this.Article;
+  async saveArticle({ id, ...article }) {
+    const exists = await this.Article.findOne({
+      where: { id },
+    });
+
+    if (id && exists) {
+      return this.Article.update(article, {
+        where: {
+          id,
+        },
+      });
+    }
+    const record = await this.Article.build(article);
+
+    return record.save();
+  }
+
+  async getAuthorArticles(id) {
+    return this.Article.findAll({
+      where: {
+        author: id,
+      },
+    });
   }
 
   async getAuthorById(id) {

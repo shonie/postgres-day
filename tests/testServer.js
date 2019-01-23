@@ -3,7 +3,6 @@ const { createTestClient } = require('apollo-server-testing');
 const createApolloFactory = require('infra/graphql');
 const createLogger = require('infra/logger');
 const createDatabase = require('infra/db');
-const uuid = require('uuid/v4');
 
 const logger = createLogger();
 
@@ -19,17 +18,17 @@ const apollo = apolloFactory({
   engine: {
     apiKey: null,
   },
-  context: {
+  context: () => ({
     request: {
       headers: {
         authorization: 'foo',
       },
     },
     user: {
-      email: 'foo@bar.baz',
-      id: uuid(),
+      email: 'test@test.com',
+      id: 'cbe88576-1791-4c17-bc25-6fa86eb51102',
     },
-  },
+  }),
 });
 
 module.exports = createTestClient(apollo);

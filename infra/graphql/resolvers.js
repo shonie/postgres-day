@@ -5,6 +5,8 @@ const { mergeResolvers } = require('./util');
 
 module.exports = {
   Query: mergeResolvers(author.Query),
-  Mutation: mergeResolvers(auth.Mutation),
+  Mutation: mergeResolvers(auth.Mutation, author.Mutation),
   Likeable,
+  Author: author.Author,
+  Article: author.Article,
 };

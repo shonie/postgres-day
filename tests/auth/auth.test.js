@@ -2,7 +2,7 @@ require('config');
 const test = require('ava');
 const { query } = require('../macros');
 
-const NEW_USER = { password: 'foo', email: 'foo@1bar.bas' };
+const NEW_USER = { password: 'foo', email: 'foo@bar.baz' };
 
 const variables = {
   accountInput: NEW_USER,

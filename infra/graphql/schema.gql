@@ -13,16 +13,16 @@ type Author implements Likeable {
   id: ID!
   nickname: String!
   email: String!
-  topics: [Topic]!
+  articles: [Article]!
   comments: [Comment]!
   likes: [Like]!
 }
 
-type Topic implements Likeable {
+type Article implements Likeable {
   id: ID!
-  title: String!
-  text: String
   author: Author!
+  title: String
+  text: String
   likes: [Like]!
 }
 
@@ -35,15 +35,15 @@ type Comment implements Likeable {
 }
 
 type Query {
-  topics: [Topic]
+  articles: [Article]
   author(id: ID!): Author
   authors: [Author]!
 }
 
-input TopicInput {
-  title: String!
+input ArticleInput {
+  id: ID
+  title: String
   text: String
-  author: ID!
 }
 
 input AccountInput {
@@ -55,6 +55,6 @@ type Mutation {
   createAccount(accountInput: AccountInput!): String!
   deleteAccount(accountInput: AccountInput!): Boolean!
   login(accountInput: AccountInput!): String!
-  saveTopic(input: TopicInput!): Topic
+  saveArticle(articleInput: ArticleInput!): Article
   like(id: String!, type: String!): Boolean
 }
